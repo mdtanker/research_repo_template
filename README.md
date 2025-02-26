@@ -33,7 +33,7 @@ These instructions assume you have `Make` installed. If you don't you can just o
 
 Install the required dependencies with either `conda` or `mamba`:
 
-    cd research_repo_template
+    cd projectname
 
     make create
 
