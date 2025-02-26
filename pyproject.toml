@@ -31,9 +31,9 @@ readme = "README.md"
 license = {file = "LICENSE"}
 
 [project.urls]
-Documentation = "https://github.com/mdtanker/package_name#readme"
-Issues = "https://github.com/mdtanker/package_name/issues"
-Source = "https://github.com/mdtanker/package_name"
+Documentation = "https://github.com/mdtanker/projectname#readme"
+Issues = "https://github.com/mdtanker/projectname/issues"
+Source = "https://github.com/mdtanker/projectname"
 
 [tool.ruff]
 lint.select = [
