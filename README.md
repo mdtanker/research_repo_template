@@ -2,11 +2,11 @@
 Template for creating repositories for research projects using Python
 
 Steps:
-1) choose a project name (no spaces, capitals or underscores) and replace `project_name` with it in the following locations:
+1) choose a project name (no spaces, capitals or underscores) and replace `projectname` with it in the following locations:
     - `Makefile` top line
     - `environment.yml` top line
-    - `src/project_name` folder
-    - `project_name.py` in `src/project_name/`
+    - `src/projectname` folder
+    - `projectname.py` in `src/projectname/`
     - line 6 of `pyproject.toml`
     - `project.urls` section of `pyproject.toml`
     - import line of `tests/test_module1.py`
@@ -16,7 +16,7 @@ Steps:
     - add a description
     - add keywords
     - replace `mdtanker` with your github username in the `project.urls` section
-4) add your code to and rename `src/project_name/module1.py`
+4) add your code to and rename `src/projectname/module1.py`
 5) add tests for `module1.py` to `tests/test_module1.py` and rename to your module
 6) remove all the above instructions and add a description of your project here, and tweak the below user instructions as needed
 
