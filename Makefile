@@ -10,7 +10,7 @@ install:
 	pip install -e .
 
 remove:
-	mamba remove --name $(PROJECT) --all
+	mamba env remove --name $(PROJECT)
 
 create:
 	mamba env create --file environment.yml --name $(PROJECT)
