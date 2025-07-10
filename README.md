@@ -17,8 +17,9 @@ Steps:
     - add keywords
     - replace `mdtanker` with your github username in the `project.urls` section
 4) add your code to and rename `src/projectname/module1.py`
-5) add tests for `module1.py` to `tests/test_module1.py` and rename to your module
-6) remove all the above instructions and add a description of your project here, and tweak the below user instructions as needed
+5) add any functions you want available on import to the list in `src/projectname/_init_.py`
+6) add tests for `module1.py` to `tests/test_module1.py` and rename to your module
+7) remove all the above instructions and add a description of your project here, and tweak the below user instructions as needed
 
 
 ## Getting the code
@@ -39,12 +40,35 @@ Install the required dependencies with either `conda` or `mamba`:
 
 Activate the newly created environment:
 
-    conda activate projectname
+    mamba activate projectname
 
 Install the local project
 
     make install
 
+
+## How to use
+
+To use this code, you need to first import the package. There are two options:
+
+### 1: Import the main function
+
+For example:
+```python
+import projectname
+```
+
+will allow you to access the function `example_function()` with either `projectname.module1.example_function()` or just `projectname.example_function()`.
+
+Functions accessed in this way need to be explicitly added to the file `src/projectname/__init__.py`
+
+### 2: Import each module individually
+
+For example:
+```python
+from projectname import module1
+```
+Will allow you to access the function `example_function()` with `module1.example_function()`.
 
 
 ## Developer instructions
