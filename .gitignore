@@ -1,3 +1,8 @@
+# Folder to store local data files which don't need to be tracked by git
+# Files in this folder want be added to GitHub
+data/*
+!data/.gitkeep
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
