@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import projectname
+from projectname import module1
 
 
 def test_example_function():
     """Test the example function from _module1."""
-    result = projectname.example_function()
+    result = module1.example_function()
     assert result == "Hello from example_function!"

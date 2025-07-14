@@ -7,10 +7,13 @@ dependencies:
   # add your dependencies here
   # for dev purposes
   - ipykernel
+  - jupyterlab
   - pre-commit
   - pylint
-  - pytest
+  - pytest>=6
+  - pytest-cov>=3
   - pip
-  # only if can't install with conda
+  # below packages need to be installed with pip (aren't available in conda-forge)
+  # - pip
   # - pip:
   #     -

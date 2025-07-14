@@ -6,7 +6,14 @@ from projectname import logger  # pylint: disable=unused-import
 # with `import projectname` should be added to the list in `__init__.py`.
 
 
-def example_function():
-    """An example function that can be imported from the project."""
+def example_function() -> str:
+    """
+    An example function that can be imported from the project.
+
+    Returns
+    -------
+    str
+        A simple greeting message.
+    """
     logger.info("This is an example function.")
     return "Hello from example_function!"
