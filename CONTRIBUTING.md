@@ -48,12 +48,10 @@ contributions.
   - [Make a branch](#make-a-branch)
   - [Make your changes](#make-your-changes)
   - [Testing your code](#testing-your-code)
-  - [Documentation](#documentation)
   - [Committing changes](#committing-changes)
   - [Push your changes](#push-your-changes)
   - [Open a PR](#open-a-pr)
   - [Code review](#code-review)
-* [Publish a new release](#publish-a-new-release)
 * [Update the Dependencies](#update-the-dependencies)
 
 ## What Can I Do?
@@ -159,7 +157,7 @@ Now we need to configure Git to sync this fork to the main repository, not your 
 `cd` into the directory you just cloned and run:
 
 ```bash
-git remote add upstream https://github.com/organizationname/projectnamee.git
+git remote add upstream https://github.com/organizationname/projectname.git
 ```
 
 ### Setting up `nox`
@@ -276,28 +274,6 @@ The coverage report will let you know which lines of code are touched by the tes
 It's OK if you can't or don't know how to test something.
 Leave a comment in the PR and we'll help you out.
 
-### Documentation
-
-The Docs are build with [Sphinx](https://www.sphinx-doc.org/en/master/) and hosted on [GitHub Pages](https://pages.github.com/).
-
-> **Note:** The docs are automatically built on each commit to a PR, but if you've made significant changes to the docs its good practice to build them manually before a PR, to check them for errors.
-
-#### Check the build manually (optional)
-
-You can build the docs using:
-```bash
-    nox -s build_api_docs
-```
-
-```bash
-    nox -s docs
-```
-
-Click the link to open your docs in a website which will automatically update as you make edits.
-
-#### Automatically build the docs
-
-Add, commit, and push all changes to GitHub in a Pull Request, and the docs should automatically be updated. If the PR can from the same repository (not a fork), then a preview of the updated docs should be available after a few minutes.
 
 ### Committing changes
 
@@ -372,22 +348,6 @@ git push origin main
 ```
 Now both your forked (upstream) and local repositories are sync with the upstream repository where the PR was merged.
 
-## Publish a new release
-
-This will almost always be done by the developers, but as a guide for them, here are instructions on how to release a new version of the package.
-
-Follow all the above instructions for formatting. Push your changes to a new or existing Pull Request. Once the automated GitHub Actions run (and pass), merge the PR into the main branch.
-
-### PyPI (pip)
-PyPI release are made automatically via GitHub actions whenever a pull request is merged.
-
-### Conda-Forge
-Once the new version is on PyPI, within a few hours a bot will automatically open a new PR in the [projectname conda-forge feedstock](https://github.com/conda-forge/projectname-feedstock). Go through the checklist on the PR. Most of the time the only actions needs are updated any changes made to the dependencies since the last release. Merge the PR and the new version will be available on conda-forge shortly.
-
-Once the new version is on conda, update the binder .yml file, as below.
-
 ## Update the dependencies
 
-To add or update a dependencies, add it to `pyproject.toml` either under `dependencies` or `optional-dependencies`. This will be included in the next build uploaded to PyPI.
-
-If you add a dependency necessary for using the package, make sure to add it to the Binder config file and update the `environment.yml` file in the repository. See below.
+To add or update a dependencies, add it to `pyproject.toml` either under `dependencies` or `optional-dependencies` and update the `environment.yml` file in the repository.
