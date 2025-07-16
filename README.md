@@ -166,18 +166,6 @@ from projectname import module1
 Will allow you to access the function `example_function()` with `module1.example_function()`.
 
 
-## Developer instructions
+# How to contribute / develop?
 
-Style-check your code:
-
-   nox -s style
-
-Test your code
-
-    nox -s test
-
-To update dependencies, first add or change dependencies listed in `environment.yml`, then with your conda environment activated run:
-
-    make update
-
-When writing code; use logging to inform users of info, errors, and warnings. In each module `.py` file, import the project-wide logger instance with `from projectname import logger` and then for example: `logger.info("log this message")`
+See the file `CONTRIBUTING.md` for some detailed instructions on how to work on developing this repository.
