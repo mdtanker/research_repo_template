@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 
 from projectname import logger  # pylint: disable=unused-import
 
