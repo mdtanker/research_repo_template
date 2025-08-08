@@ -1,7 +1,7 @@
 # How to contribute
 
 ## TLDR (Too long; didn't read)
-* OPTIONAL: if you're contributing to someone else's repository, first [fork](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) the main [repository](https://github.com/organizationname/projectname) using the `Fork` button on GitHub.
+* [fork](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) the [repository](https://github.com/organizationname/projectname) using the `Fork` button on GitHub.
 * clone the (forked) repository on your computer: `git clone https://github.com/organizationname/projectname`.
 * [create a branch](https://docs.github.com/en/get-started/using-github/github-flow#create-a-branch) for your edits: `git checkout -b new-branch`
 * make your changes
@@ -43,7 +43,7 @@ contributions.
   - [General guidelines](#general-guidelines)
   - [Fork the repository](#fork-the-repository)
   - [Clone the repository](#clone-the-repository)
-  - [Setting up Nox](#setting-up-nox)
+  - [Setting up nox](#setting-up-nox)
   - [Setting up your environment](#setting-up-your-environment)
   - [Make a branch](#make-a-branch)
   - [Make your changes](#make-your-changes)
@@ -52,6 +52,7 @@ contributions.
   - [Push your changes](#push-your-changes)
   - [Open a PR](#open-a-pr)
   - [Code review](#code-review)
+  - [Sync your fork and local](#sync-your-fork-and-local)
 * [Update the Dependencies](#update-the-dependencies)
 
 ## What Can I Do?
@@ -169,7 +170,7 @@ You can install nox with `pip install nox`.
 
 ### Setting up your environment
 
-Run the following `make` command to create a new environment and install the package dependencies. If you don't have / want to install make, just copy the commands from the Makefile file and run them in the terminal.
+Run the following `make` commands to create a new environment and install the package dependencies. If you don't have / want to install make, just copy the commands from the Makefile file and run them in the terminal.
 
 ```
 make create
@@ -207,6 +208,7 @@ nox -s lint
 ```
 
 To have `pre-commit` run automatically on commits, install it with `pre-commit install`
+To have `pre-commit` run online, after any commits to the repository, you can enable the `pre-commit.ci` service by going to [https://pre-commit.ci/](https://pre-commit.ci/), signing in with your GitHub account, and enabling the service for your repository. This requires it to be public.
 
 Go through the output of this and try to change the code based on the errors. Search the error codes on the [Ruff documentation](https://docs.astral.sh/ruff/), which should give suggestions. Re-run the check to see if you've fixed it. Somethings can't be resolved (unsplittable urls longer than the line length). For these, add `# noqa: []` at the end of the line and the check will ignore it. Inside the square brackets add the specific error code you want to ignore.
 
