@@ -4,6 +4,4 @@ import projectname
 
 
 def test_version():
-    assert (
-        importlib.metadata.version("projectname") == projectname.__version__
-    )
+    assert importlib.metadata.version("projectname") == projectname.__version__
