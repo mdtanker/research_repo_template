@@ -4,11 +4,11 @@ channels:
   - nodefaults
 dependencies:
   - python=3.12
-  # add your dependencies here
-  # for dev purposes
+  # Required dependencies
+  # Optional dependencies
+  # dev
   - ipykernel
   - jupyterlab
-  - pre-commit
   - pytest>=6
   - pytest-cov>=3
   # below packages need to be installed with pip (aren't available in conda-forge)
