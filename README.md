@@ -15,21 +15,28 @@ This template is a based on the [Scientific Python Development Guide](https://le
 
 Steps:
 1) Initiate your repository:
-    - On this [template's page](https://github.com/mdtanker/research_repo_template), click the `Use this template` button to `Create a new repository`.
+    - on this [template's page](https://github.com/mdtanker/research_repo_template), click the `Use this template` button to `Create a new repository`.
     - choose a project name
         - for simplicity, this name will be used for all of the follow: the folder name that holds this repository as well as the code folder under `src/`, and the repository name on GitHub. The best choice is a lowercase word with no spaces or punctuation, but if necessary capitalization and underscores can be included.
     - choose if you want the repository in your personal account or in one of your organization's accounts.
     - add a 1 sentence description of the project.
     - choose public or private. This can be changed later, but to be published on Zenodo, it needs to be public.
     - create the repository
+    - update any repository settings, below are my recommended settings:
+        - enable discussions
+        - only allow squash merging (disable the other options)
+        - always suggest updating pull request branches
+        - automatically delete head branches
+        - protect the main branch so any changes to it need to be made through a Pull Request.
+            - go to the repository's `Settings`, `Branches`, `Add branch ruleset`. Name it "protected_main", make the `Enforecement status` Active, include the Default branch as the target, and check the following `Rules`: `Restrict deletion`, `Require a pull request before merging`, only allow `Squash` as a merge method, and `Block force pushes`.
 2) Update this template:
-    - clone your repository to your computer with `git clone <url of the github repo>`.
-    - change all instances of `projectname` in this repository with your chosen name. (If use a program like VSCode use a `search and replace` function (i.e. `ctrl+f`)).
+    - clone your repository to your computer with `git clone <url of the github repo>`; if you create the repository on an organization's GitHub instead of your personal one, first fork the repository before you clone it.
+    - change all instances of `projectname` in this repository with your chosen name. (If use a program like VSCode use a `search and replace` function (i.e. `ctrl+f`)), there should be ~50 instances of `projectname`.
         - this includes the folder name of `src/projectname/`
     - add your name to Line 9 of `pyproject.toml`
-    - replace `organizationname/projectname` with your GitHub organization (or personal) account name and projectname on lines 50-52 of `pyproject.toml`
-    - update `pyproject.yml` with a description (1 sentence) and keywords ()
-    - add a description of your project at the bottom of this README.
+    - replace all instances of `organizationname` with your GitHu organization (or personal) account name, whichever is going to host the repository.
+    - update `pyproject.yml` with a description (1 sentence) and keywords.
+    - add a description of your project here in the README.
     - at this point, it might be good to make your initial commit to your repository with the following git commands:
         ```bash
         git checkout -b new-branch
@@ -78,39 +85,19 @@ Steps:
     - dependencies for your code should typically only be those that are directly used (imported) in your source code (or are explicitly needed but not import), but not the dependencies of your dependencies.
     - core dependencies are specified in `pyproject.toml` under the `[project]` section with the format `dependencies = ["pandas", "scipy>=1.0"]`.
     - optional dependencies are specified in `pyproject.toml` under the `[dependency-groups]` section with the following format, for example for optional visualization dependencies: `viz = ["matplotlib",]`.
-    - Dependency version's should only be constrained to specific versions if you know there is an issue, and they should almost never be pinned to specific versions, as this will cause many issues for anyone who wants to use your package in their own environments.
-    - this template also includes files and commands to create `conda` environments. You need to manually ensure the dependencies listed in `environmental.yml` match those in `pyproject.toml`. Include all optional dependencies in the `environmental.yml`. If a dependency is only available via pip, and not conda, add it at the bottom to be installed via pip.
-6) Setting up your environment
-    - create a new conda environment based on the dependencies in your `environment.yml` file, and install your code in editable mode into it. Editable means if you change the code, the environment will include those changes without have to re-install the code. However, you will need to restart your Jupyter kernel if using notebooks to get the updated code.
-    - Note that `mamba` can be replaced by `conda`.
-    ```bash
-    mamba env create --file environment.yml
-    mamba activate projectname
-    pip install --no-deps -e .
-    ```
-    - for convienance, if you have the tool `Make` installed, you can use the equivalent commands:
-    ```bash
-    make create
-    mamba activate projectname
-    make install
-    ```
-7) Run `pre-commit` code checks
-    - `pre-commit` offers some tools for auto-formatting your code, and checking for common issues and bugs. The specific tools that are run are defined in `.pre-commit.config.yaml`. To run pre-commit, we use another tool called `nox`, install it with `pip install nox`.
-    - run pre-commit with `nox -s lint`.
-    - run it again to remove warnings about the things that were auto-fixed
-    - this will likely give you lots of warnings about miss-spellings, and issues like your code not have docstrings or missing / incorrect type annotations. Either fix these warnings in your code, or if you really don't care about things like docstrings or type annotations, you can disable some checks in `.pre-commit.config.yaml`.
-    - if you want to ignore a warning on a specific line, you can add this to the end of the line:  `# noqa: code` where code is the warning you want to suppress.
-8) Enable `pre-commit` to run automatically
-    - install and enable it with `pre-commit install`
-9) Run `pylint` linting checks.
-    - `pylint` is a very opinionated tool for checking python code for common issues and adhering to best-practises. `pylint` is configured in `pyprojec.toml`, and we run it with `nox`: `nox -s pylint`.
-    - this will likely give you lots of warnings. Go through these and try and fix them all. If you want to ignore a specific warning on a specific line, add this to the end: `# pylint: disable=warning-message` where warning-message is the warning you want to suppress.
-10) Set up automated Zenodo releases
+    - if you know your package has an issue with a specific version of a dependency, you can set a max or min version with "scipy>=1.0".
+    - dependencies should almost never be pinned to specific versions, as this will cause many issues for anyone who wants to use your package in their own environments.
+    - for standard scientific packages (i.e., `pandas`, `xarray`, and `numpy`), as well as the version of Python, it's recommended to set minimum support versions following the timeline of [SPEC 0 guidelines](https://scientific-python.org/specs/spec-0000/).
+    - this template also includes files and commands to create `conda` environments. You need to manually ensure the dependencies listed in `environment.yml` match those in `pyproject.toml`. Include all optional dependencies in the `environment.yml`. If a dependency is only available via pip, and not conda, add it at the bottom to be installed via pip.
+6) Create environment, style check, test, and commit your changes.
+    - follow the instructions in `CONTRIBUTING.md` starting at section `Setting up nox`.
+    - these steps should result in a merged PR with your code.
+7) Set up automated Zenodo releases
     - if you haven't already, link your organization (or personal) GitHub account to [Zenodo](https://zenodo.org/) using `Linked accounts` under your Zenodo profile.
     - do to the `GitHub` menu on your Zenodo profile.
     - click the Sync button and then turn on the switch for your repository.
-    - any future GitHub releases ('make a release' button) should now result in a new Zenodo release and DOI automatically.
-11) Finalize
+    - any future GitHub releases should now result in a new Zenodo release and DOI automatically.
+8) Finalize
     - remove all the above instructions and raise any issues in this template's repository if you have any suggestion or found any errors in this template!
 
 # projectname
@@ -121,17 +108,17 @@ Short description of your code.
 
 You can download a copy of all the files for this project by cloning the GitHub repository:
 
-    git clone https://github.com/mdtanker/projectname
+    git clone https://github.com/organizationname/projectname
 
 ## Dependencies
 
-These instructions assume you have `Make` installed. If you don't you can just open up the `Makefile` file and copy and paste the commands into your terminal. This also assumes you have Python installed.
+These instructions assume you have Python (>=3.11) installed. If you don't we recommend installing it with [miniforge](https://github.com/conda-forge/miniforge) for a simple and minimal setup.
 
 Install the required dependencies with either `conda` or `mamba`:
 
     cd projectname
 
-    make create
+    mamba env create --file environment.yml --name projectname
 
 Activate the newly created environment:
 
@@ -139,31 +126,7 @@ Activate the newly created environment:
 
 Install the local project
 
-    make install
-
-
-## How to use
-
-To use this code, you need to first import the package. There are two options:
-
-### 1: Import the main function
-
-For example:
-```python
-import projectname
-```
-
-will allow you to access the function `example_function()` with either `projectname.module1.example_function()` or just `projectname.example_function()`.
-
-Functions accessed in this way need to be explicitly added to the file `src/projectname/__init__.py`
-
-### 2: Import each module individually
-
-For example:
-```python
-from projectname import module1
-```
-Will allow you to access the function `example_function()` with `module1.example_function()`.
+    pip install --no-deps -e .
 
 
 # How to contribute / develop?
