@@ -65,7 +65,7 @@ Documentation = "https://github.com/organizationname/projectname#readme"
 
 [tool.hatch]
 version.source = "vcs"
-build.hooks.vcs.version-file = "src/synthetic_bathymetry_inversion/_version.py"
+build.hooks.vcs.version-file = "src/projectname/_version.py"
 
 [tool.hatch.envs.default]
 # duplicate for now since hatch doesn't support groups yet
