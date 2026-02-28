@@ -25,9 +25,6 @@ Steps:
     - clone your repository to your computer with `git clone <url of the github repo>`; if you create the repository on an organization's GitHub instead of your personal one, first fork the repository before you clone it.
     - change all instances of `projectname` in this repository with your chosen name. (If use a program like VSCode use a `search and replace` function (i.e. `ctrl+f`)), there should be ~30 instances of `projectname`.
         - this includes the folder name of `src/projectname/`
-    - add your name to Line 8 of `pyproject.toml`
-    - replace all instances of `organizationname` with your GitHu organization (or personal) account name, whichever is going to host the repository.
-    - update `pyproject.yml` with a description (1 sentence) and keywords.
     - add a description of your project here in the README.
     - at this point, it might be good to make your initial commit to your repository with the following git commands:
         ```bash
@@ -89,7 +86,7 @@ Short description of your code.
 
 You can download a copy of all the files for this project by cloning the GitHub repository:
 
-    git clone https://github.com/organizationname/projectname
+    git clone <url of this project>
 
 ## Dependencies
 

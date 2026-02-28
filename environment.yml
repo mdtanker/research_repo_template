@@ -4,9 +4,6 @@ channels:
   - nodefaults
 dependencies:
   - python=3.12
-  # Required dependencies
-  # Optional dependencies
-  # dev
   - ipykernel
   - jupyterlab
   # below packages need to be installed with pip (aren't available in conda-forge)
