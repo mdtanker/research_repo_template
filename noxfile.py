@@ -38,13 +38,3 @@ def style(session: nox.Session) -> None:
     """
     session.notify("lint")
     session.notify("pylint")
-
-
-@nox.session
-def test(session: nox.Session) -> None:
-    """
-    Run the unit and regular tests.
-    """
-    test_deps = nox.project.dependency_groups(PROJECT, "test")
-    session.install("-e.", *test_deps)
-    session.run("pytest", "--cov", *session.posargs)

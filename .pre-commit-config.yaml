@@ -3,7 +3,10 @@ ci:
   autofix_commit_msg: "style: pre-commit fixes"
   autoupdate_schedule: quarterly
 
-# exclude: ^()
+exclude: |
+  (?x)^(
+      environment.yml
+  )$
 
 repos:
   - repo: https://github.com/adamchainz/blacken-docs
@@ -16,6 +19,8 @@ repos:
     rev: "v6.0.0"
     hooks:
       - id: check-added-large-files
+        # use below to remove warnign about a large file
+        # exclude: ^(docs/file_name1.txt|file_name2.ipynb)
       - id: check-case-conflict
       - id: check-merge-conflict
       - id: check-symlinks
@@ -50,15 +55,13 @@ repos:
         args: ["--fix", "--show-fixes"]
       - id: ruff-format
 
-  # Comment out below block if you don't care about type checking
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.19.1"
-    hooks:
-      - id: mypy
-        files: src|tests
-        args: []
-        additional_dependencies:
-          - pytest
+  # # Comment out below block if you don't care about type checking
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: "v1.19.1"
+  #   hooks:
+  #     - id: mypy
+  #       files: src
+  #       args: []
 
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.4.1"
@@ -68,7 +71,7 @@ repos:
           - tomli; python_version<'3.11'
         entry:
           codespell --ignore-regex='[A-Za-z0-9+/]{100,}'
-          --skip="*.js,*.html,*.css,*.svg"
+          --skip="*.ipynb,*.js,*.html,*.css,*.svg, *.bib,"
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: "v0.11.0.1"

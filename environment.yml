@@ -9,8 +9,6 @@ dependencies:
   # dev
   - ipykernel
   - jupyterlab
-  - pytest>=6
-  - pytest-cov>=3
   # below packages need to be installed with pip (aren't available in conda-forge)
   # - pip
   # - pip:
