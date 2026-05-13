@@ -58,16 +58,16 @@ Steps:
     - add your code to your module `.py` files.
     - in your notebooks or python scripts you should import your local code with `import projectname`.
     - To access a function / class you via `projectname.functionname`, you have to add the function or class names to the file `src/projectname/_init_.py`.
-5) Specify your environment and  dependencies
+5) Specify your  dependencies
+    - this template uses `pixi` to define dependencies, manage environments, and run tasks. Follow the instructions here to install `pixi`: https://pixi.prefix.dev/latest/installation/
     - dependencies for your code should typically only be those that are directly used (imported) in your source code (or are explicitly needed but not import), but not the dependencies of your dependencies.
-    - add these dependencies to the `environment.yml` file. Users can recreate an environment from this file with `conda env create --file environment.yml`
-    - if you know your package has an issue with a specific version of a dependency, you can set a max or min version with `scipy>=1.0`
-    - if a dependency is only available via pip, and not conda, add it at the bottom to be installed via pip.
+    - add these dependencies to the `pyproject.toml` file under the section `[tool.pixi.dependencies]`. You can do this manually, but the better was is using the `pixi add` command: `pixi add scipy`.
+    - if you know your package has an issue with a specific version of a dependency, you can set a max or min version with `pixi add "scipy>=1.0"`
+    - if a dependency is only available via pip, and not conda, you can add it with `pixi add --pypi scipy`.
 
 ### Optional steps
 6) Setup code-style checks
-    - install nox with `pip install nox`
-    - run style checks with `nox -s style`
+    - run style checks with `pixi r style`
     - install pre-commit with `pip install pre-commit`
     - set pre-commit to run for all local commits with `pre-commit install`
 7) Set up automated Zenodo releases
@@ -90,7 +90,18 @@ You can download a copy of all the files for this project by cloning the GitHub 
 
 ## Dependencies
 
-These instructions assume you have Python (>=3.11) installed. If you don't we recommend installing it with [miniforge](https://github.com/conda-forge/miniforge) for a simple and minimal setup.
+These instructions assume you have Python (>=3.12) installed. If you don't we recommend installing it with [miniforge](https://github.com/conda-forge/miniforge) for a simple and minimal setup.
+
+You can install the required dependencies with `conda` (or the equivalent `mamba`) or with `pixi`.
+
+### Using pixi
+
+- install `pixi` following the install instructions: https://pixi.prefix.dev/latest/installation/
+- change into the directory: `cd projectment`
+- install the dependencies: `pixi install`
+
+
+### Using conda
 
 Install the required dependencies with either `conda` or `mamba`:
 

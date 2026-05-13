@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "projectname"
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 1 - Planning",
   "Intended Audience :: Science/Research",
@@ -16,7 +16,6 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering",
@@ -41,7 +40,7 @@ report.exclude_also = [
 
 [tool.mypy]
 files = ["src"]
-python_version = "3.11"
+python_version = "3.12"
 warn_unused_configs = true
 strict = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
@@ -63,25 +62,40 @@ disallow_incomplete_defs = true
 extend-select = [
   "ARG",      # flake8-unused-arguments
   "B",        # flake8-bugbear
+  "BLE",    # flake8-blind-except
   "C4",       # flake8-comprehensions
+  "DTZ",    # flake8-datetimez
   "EM",       # flake8-errmsg
   "EXE",      # flake8-executable
+  "FA",     # flake8-future-annotations
+  "FLY",    # flynt
+  "FURB",   # refurb
   "G",        # flake8-logging-format
   "I",        # isort
-  "ICN",      # flake8-import-conventions
-  "NPY",      # NumPy specific rules
-  "PD",       # pandas-vet
-  "PGH",      # pygrep-hooks
-  "PIE",      # flake8-pie
-  "PL",       # pylint
-  "PT",       # flake8-pytest-style
-  "PTH",      # flake8-use-pathlib
-  "RET",      # flake8-return
-  "RUF",      # Ruff-specific
-  "SIM",      # flake8-simplify
-  "T20",      # flake8-print
-  "UP",       # pyupgrade
-  "YTT",      # flake8-2020
+  "ICN",    # flake8-import-conventions
+  "ISC",    # flake8-implicit-str-concat
+  "LOG",    # flake8-logging
+  "NPY",    # NumPy specific rules
+  "PD",     # pandas-vet
+  "PERF",   # perflint
+  "PGH",    # pygrep-hooks
+  "PIE",    # flake8-pie
+  "PL",     # pylint
+  "PT",     # flake8-pytest-style
+  "PTH",    # flake8-use-pathlib
+  "PYI",    # flake8-pyi
+  "Q",      # flake8-quotes
+  "RET",    # flake8-return
+  "RSE",    # flake8-raise
+  "RUF",    # Ruff-specific
+  "SIM",    # flake8-simplify
+  "SLOT",   # flake8-slots
+  "T10",    # flake8-debugger
+  "T20",    # flake8-print
+  "TC",     # flake8-type-checking
+  "TRY",    # tryceratops
+  "UP",     # pyupgrade
+  "YTT",    # flake8-2020
 ]
 ignore = [
   "PLR09",    # Too many <...>
@@ -91,11 +105,15 @@ ignore = [
 # typing-modules = ["projectname._compat.typing"]
 
 [tool.ruff.lint.per-file-ignores]
-"noxfile.py" = ["T20"]
-"*.ipynb" = ["T201"]
+"tests/**" = ["T20"]
+"__init__.py" = ["F401"]  # disable unused-imports errors on __init__.py
+"*.ipynb" = [
+  "T201", # allow print statements
+  "E712", # allow == False in pandas subsetting
+]
 
 [tool.pylint]
-py-version = "3.11"
+py-version = "3.12"
 ignore-paths = [".*\\_version.py"]
 reports.output-format = "colorized"
 similarities.ignore-imports = "yes"
@@ -106,8 +124,43 @@ messages_control.disable = [
   "line-too-long",
   "missing-module-docstring",
   "wrong-import-position",
-  "cyclic-import",
 ]
 
 [tool.codespell]
 ignore-words-list = ["word_to_ignore"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64"]#, "osx-64", "osx-arm64"]
+
+[tool.pixi.pypi-dependencies]
+projectname = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+
+[tool.pixi.feature.test.tasks.test]
+cmd = "pytest {{ target }} -ra --cov --cov-report=xml --cov-report=term --durations=20"
+args = [{ arg = "target", default = "tests/" }]
+
+[tool.pixi.feature.test.dependencies]
+pytest = ">=9"
+pytest-cov = ">=7"
+
+[tool.pixi.feature.dev.tasks.format]
+cmd = "pre-commit run --all-files"
+
+[tool.pixi.feature.dev.tasks.lint]
+cmd = "pylint projectname"
+
+[tool.pixi.feature.dev.tasks.style]
+cmd = "pre-commit run --all-files ; pylint projectname"
+
+[tool.pixi.feature.dev.dependencies]
+jupyterlab = ">=4.5.6,<5"
+pre-commit = ">=4.5.1,<5"
+pylint = ">=3.2"
+
+[tool.pixi.dependencies]

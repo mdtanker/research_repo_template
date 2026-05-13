@@ -5,7 +5,8 @@ ci:
 
 exclude: |
   (?x)^(
-      environment.yml
+      .github/config.yml |
+      pixi.lock
   )$
 
 repos:
@@ -46,7 +47,7 @@ repos:
       - id: prettier
         types_or: [yaml, markdown, html, css, scss, javascript, json]
         args: [--prose-wrap=always]
-        exclude: \.md
+        exclude: \.md|ci.yml
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "v0.14.10"
@@ -68,10 +69,11 @@ repos:
     hooks:
       - id: codespell
         additional_dependencies:
-          - tomli; python_version<'3.11'
+          - tomli; python_version<'3.12'
         entry:
           codespell --ignore-regex='[A-Za-z0-9+/]{100,}'
           --skip="*.ipynb,*.js,*.html,*.css,*.svg, *.bib,"
+        exclude: \.ipynb
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: "v0.11.0.1"
@@ -87,7 +89,7 @@ repos:
         exclude: .pre-commit-config.yaml
 
   - repo: https://github.com/abravalheri/validate-pyproject
-    rev: "v0.24.1"
+    rev: "v0.25"
     hooks:
       - id: validate-pyproject
         additional_dependencies: ["validate-pyproject-schema-store[all]"]
