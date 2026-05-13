@@ -72,7 +72,7 @@ Steps:
     - set pre-commit to run for all local commits with `pre-commit install`
 7) Set up automated Zenodo releases
     - if you haven't already, link your organization (or personal) GitHub account to [Zenodo](https://zenodo.org/) using `Linked accounts` under your Zenodo profile.
-    - do to the `GitHub` menu on your Zenodo profile.
+    - go to the `GitHub` menu on your Zenodo profile.
     - click the Sync button and then turn on the switch for your repository.
     - any future GitHub releases should now result in a new Zenodo release and DOI automatically.
 8) Finalize
@@ -116,3 +116,11 @@ Activate the newly created environment:
 Install the local project
 
     pip install --no-deps -e .
+
+## Development
+
+* To format and style-check your code: `pixi r style`
+* To add a dependency: `pixi add scipy` or `pixi add "scipy>1.2"`
+* To add a local folder as an editable dependency: in `pyproject.taml`, under section `[tool.pixi.pypi-dependencies]`, add `packagename = { path = "../packagename", editable = true }`
+* To run tests: `pixi r test`
+* To export the pixi environment to a `conda` environment.yml file: `pixi workspace export conda-environment environment.yml`

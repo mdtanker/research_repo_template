@@ -164,3 +164,4 @@ pre-commit = ">=4.5.1,<5"
 pylint = ">=3.2"
 
 [tool.pixi.dependencies]
+ipykernel = "*"
